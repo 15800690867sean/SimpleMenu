@@ -82,6 +82,9 @@
 html,
 body {
   max-width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
 }
 
@@ -98,6 +101,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.menu-header {
+  padding: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

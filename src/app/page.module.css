@@ -1,21 +1,21 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 6vh;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
 }
 
 .description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
+  margin-right: 0.5rem;
+}
+
+.link {
+  text-decoration: underline;
+  color: red;
+  font-weight: bold;
 }
 
 .description a {
