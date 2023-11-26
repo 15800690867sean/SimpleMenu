@@ -1,0 +1,35 @@
+.list {
+    background: rgb(224, 223, 223);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2vh;
+
+    .titleBar {
+        width: 100%;
+        height: 8%;
+        background-color: orange;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 2vh;
+        font-weight: bolder;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .welcome {
+        font-size: x-large;
+        font-family: 'Times New Roman', Times, serif;
+        margin-bottom: 2vh;
+    }
+
+    .body {
+        flex: 1;
+        min-width: 50%;
+        height: 100%;
+        border-radius: 2rem;
+        border: 2px dotted orange;
+        padding: 2rem;
+    }
+}

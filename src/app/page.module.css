@@ -1,11 +1,19 @@
 .main {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 6vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   height: 100%;
   background-color: #fff;
   color: #000;
+}
+
+.welcome {
+  font-size: 6rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  height: 40vh;
+  line-height: 40vh;
+  color: orange;
 }
 
 .description {
@@ -14,7 +22,7 @@
 
 .link {
   text-decoration: underline;
-  color: red;
+  color: orange;
   font-weight: bold;
 }
 
