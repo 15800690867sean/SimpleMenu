@@ -3,10 +3,20 @@
 import React, { Component } from 'react';
 import styles from './buttonList.module.css';
 import ButtonItem from '../buttonItem/buttonItem';
+import { btnArr } from '@/app/mockBtn';
+import Link from 'next/link';
 
-export default class ButtonList extends Component {
+interface IProps {};
+
+interface IState {
+  activeIdx: number;
+  isLogin: boolean;
+};
+
+export default class ButtonList extends Component<IProps, IState> {
   state = {
     activeIdx: 0,
+    isLogin: false,
   };
 
   options = [
@@ -24,8 +34,28 @@ export default class ButtonList extends Component {
     },
   ];
 
+  componentDidMount(): void {
+    const status = localStorage.getItem('loginStatus');
+    if (status) {
+      this.setState({
+        isLogin: true,
+      });
+    };
+  };
+
+  handleLogout = (): void => {
+    localStorage.removeItem('loginStatus');
+    this.setState({
+      isLogin: false,
+    });
+    alert('Logout Successfully!');
+  }
+
   render() {
-    const {activeIdx} = this.state;
+    const {
+      activeIdx,
+      isLogin,
+    } = this.state;
     return (
       <div className={styles.list}>
         <div className={styles.titleBar}>
@@ -53,7 +83,28 @@ export default class ButtonList extends Component {
         </h2>
         <p style={{ marginBottom: '2vh' }}>{this.options[activeIdx].desc}</p>
         <div className={styles.body}>
-          <ButtonItem></ButtonItem>
+          {isLogin 
+          ? <ButtonItem
+            btnName='logout'
+            callback={this.handleLogout}
+          />
+          : <ButtonItem>
+            <Link
+              style={{
+                display: 'block',
+                height: '100%',
+                width: '100%'
+              }}
+              href={'/login'}
+            >
+              login
+            </Link>
+          </ButtonItem>}
+          {btnArr.map((item) => (
+            <ButtonItem key={item} btnName={item} callback={() => {
+              alert(`You clicked ${item}`)
+            }}/>
+          ))}
         </div>
       </div>
     )

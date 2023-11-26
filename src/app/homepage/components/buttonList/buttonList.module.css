@@ -26,7 +26,8 @@
 
     .body {
         flex: 1;
-        min-width: 50%;
+        overflow-y: scroll;
+        width: 50%;
         height: 100%;
         border-radius: 2rem;
         border: 2px dotted orange;
