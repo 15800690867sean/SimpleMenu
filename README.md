@@ -28,7 +28,7 @@ Visit (http://localhost:3000/homepage) or click the link in the welcome page to 
 
 When the login button in the homepage is clicked, you will see the login page.
 
-You can input your username and password in the input box, by clicking the submit button the data will be sent to the api.
+You can input your username and password in the input box, by clicking the submit button the data will be sent to the api which is a fake endpoint.
 
 If the password and username are both valid, then the login process will be finished successfully and your status will be changed. Otherwise, you will see an alert showing you what's the problem.
 
@@ -36,11 +36,9 @@ If the password and username are both valid, then the login process will be fini
 
 ### Default Mode
 
-The valid username and password are stored in a file named mockData.ts which in the directory /api/login.
+The valid username-password pairs are stored in a file named mockData.ts which is in the directory /api/login.
 
-That means the information is written and is not obtained from the database.
-
-This mode is only used to show the basic functions.
+This process simulates the process of reading user information from the database.
 
 ### JSON Mode
 
@@ -52,9 +50,7 @@ You can reset the menu by clicking the 'Reset the menu' text in the page.
 
 However, the login/logout button will always be the first button in the menu. Because the login function is the main function of this project, so it ought to be in the menu anyway.
 
-### Database Mode
-
-In this mode, the user information including username and password is stored in a database, and the login api will access that database to get the information.
+At the same time, you can also upload your JSON file, and the data inside will replace the origin JSON data obtained from the api.
 
 ## Unit Test
 

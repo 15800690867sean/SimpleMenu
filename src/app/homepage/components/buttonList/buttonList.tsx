@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 import styles from './buttonList.module.css';
 import ButtonItem from '../buttonItem/buttonItem';
 import { btnArr } from '@/app/homepage/components/mockBtn';
@@ -29,11 +29,7 @@ export default class ButtonList extends Component<IProps, IState> {
     {
       title: 'JSON mode',
       desc: 'All content is obtained from JSON, and the content may change based on your clicks'
-    },
-    {
-      title: 'Database mode',
-      desc: 'The login information is stored in the database'
-    },
+    }
   ];
 
   // Used to store the JSON obtained from the api --- JSON Mode
@@ -77,6 +73,7 @@ export default class ButtonList extends Component<IProps, IState> {
     };
   }
 
+  // change the menu according to the JSON data and clicks
   changeMenu = (key: string): void => {
     this.currentButtonTree = this.currentButtonTree[key];
     this.setState({
@@ -84,6 +81,7 @@ export default class ButtonList extends Component<IProps, IState> {
     });
   };
 
+  // reset the menu with the origin JSON data obtained from the api
   handleReset = (): void => {
     this.currentButtonTree = this.buttonTree;
     this.setState({
@@ -97,7 +95,25 @@ export default class ButtonList extends Component<IProps, IState> {
       isLogin: false,
     });
     alert('Logout Successfully!');
-  }
+  };
+
+  // handle the JSON file uploaded by user
+  handleUpload = (files: FileList | null): void => {
+    if (!files) {
+      return;
+    }
+    const file = files[0];
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      const fileStr = event.target?.result as string || '';
+      const jsonObj = JSON.parse(fileStr);
+      this.buttonTree = jsonObj;
+      this.currentButtonTree = jsonObj;
+      // set the buttons according to the initial JSON
+      this.setState({ buttons: Object.keys(this.currentButtonTree) });
+    };
+  };
 
   render() {
     const {
@@ -132,16 +148,20 @@ export default class ButtonList extends Component<IProps, IState> {
         </h2>
         <p style={{ marginBottom: '2vh' }}>{this.options[activeIdx].desc}</p>
         {activeIdx === 1 && 
-        <p
-          style={{
-            color: 'red',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-          }}
-          onClick={this.handleReset}
-        >
-          Reset the menu
-        </p>
+          <p
+            style={{
+              color: 'red',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              marginBottom: '2vh',
+            }}
+            onClick={this.handleReset}
+          >
+            Reset the menu
+          </p>
+        }
+        {activeIdx === 1 && 
+          <input onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleUpload(e.target.files)} type="file" accept='application/json' />
         }
         <div className={styles.body}>
           {isLogin 
