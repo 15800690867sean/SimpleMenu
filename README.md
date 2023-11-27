@@ -48,6 +48,8 @@ The data used for constructing the menu is obtained from a specific api. And tha
 
 The structure of the menu is generated based on the data in JSON, and after clicking each button, the menu will also change based on the data in JSON.
 
+You can reset the menu by clicking the 'Reset the menu' text in the page.
+
 However, the login/logout button will always be the first button in the menu. Because the login function is the main function of this project, so it ought to be in the menu anyway.
 
 ### Database Mode

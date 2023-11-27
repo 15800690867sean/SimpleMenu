@@ -1,0 +1,26 @@
+{
+    "button1": {
+        "button1-1-nochild": {},
+        "button1-2": {
+            "button1-1-1-nochild": {},
+            "button1-1-2": {
+                "final-button-1-nochild": {},
+                "final-button-2-nochild": {}
+            },
+            "button1-1-3": {
+                "final-button-3-nochild": {},
+                "final-button-4-nochild": {}
+            }
+        }
+    },
+    "button2-one-layer": {
+        "button2-1-nochild": {},
+        "button2-2-nochild": {},
+        "button2-3-nochild": {},
+        "button2-4-nochild": {},
+        "button2-5-nochild": {},
+        "button2-6-nochild": {},
+        "button2-7-nochild": {}
+    },
+    "button3-nochild": {}
+}

@@ -11,12 +11,14 @@ interface IProps {};
 interface IState {
   activeIdx: number;
   isLogin: boolean;
+  buttons: string[]; 
 };
 
 export default class ButtonList extends Component<IProps, IState> {
   state = {
     activeIdx: 0,
     isLogin: false,
+    buttons: btnArr,
   };
 
   options = [
@@ -34,6 +36,12 @@ export default class ButtonList extends Component<IProps, IState> {
     },
   ];
 
+  // Used to store the JSON obtained from the api --- JSON Mode
+  buttonTree: Record<string, any> = {};
+
+  // Used to store the current button tree according to the user clicks--- JSON Mode
+  currentButtonTree: Record<string, any> = {};
+
   componentDidMount(): void {
     const status = localStorage.getItem('loginStatus');
     if (status) {
@@ -41,6 +49,46 @@ export default class ButtonList extends Component<IProps, IState> {
         isLogin: true,
       });
     };
+  };
+
+  componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+    // The mode is not changed
+    if (prevState.activeIdx === this.state.activeIdx) {
+      return;
+    };
+    // JSON Mode
+    if (this.state.activeIdx === 1) {
+      fetch("/api/menuData", {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(async (res) => {
+        const {data} = await res.json();
+        this.buttonTree = data;
+        this.currentButtonTree = data;
+        // set the buttons according to the initial JSON
+        this.setState({ buttons: Object.keys(this.currentButtonTree) });
+      }).catch((error: Error) => {
+        alert(`JSON request failed: ${error.message}`)
+      });
+    } else if (this.state.activeIdx === 0) {
+      this.setState({ buttons: btnArr });
+    };
+  }
+
+  changeMenu = (key: string): void => {
+    this.currentButtonTree = this.currentButtonTree[key];
+    this.setState({
+      buttons: Object.keys(this.currentButtonTree),
+    });
+  };
+
+  handleReset = (): void => {
+    this.currentButtonTree = this.buttonTree;
+    this.setState({
+      buttons: Object.keys(this.currentButtonTree),
+    });
   };
 
   handleLogout = (): void => {
@@ -55,6 +103,7 @@ export default class ButtonList extends Component<IProps, IState> {
     const {
       activeIdx,
       isLogin,
+      buttons,
     } = this.state;
     return (
       <div className={styles.list}>
@@ -82,6 +131,18 @@ export default class ButtonList extends Component<IProps, IState> {
           Welcome to the homepage
         </h2>
         <p style={{ marginBottom: '2vh' }}>{this.options[activeIdx].desc}</p>
+        {activeIdx === 1 && 
+        <p
+          style={{
+            color: 'red',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+          onClick={this.handleReset}
+        >
+          Reset the menu
+        </p>
+        }
         <div className={styles.body}>
           {isLogin 
           ? <ButtonItem
@@ -100,9 +161,14 @@ export default class ButtonList extends Component<IProps, IState> {
               login
             </Link>
           </ButtonItem>}
-          {btnArr.map((item) => (
-            <ButtonItem key={item} btnName={item} callback={() => {
-              alert(`You clicked ${item}`)
+          {buttons.map((item) => (
+            <ButtonItem key={item} btnName={item} callback={
+              activeIdx === 1
+                ? () => {
+                  this.changeMenu(item);
+                } 
+                : () => {
+                  alert(`You clicked ${item}`)
             }}/>
           ))}
         </div>
