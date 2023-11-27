@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styles from './buttonList.module.css';
 import ButtonItem from '../buttonItem/buttonItem';
-import { btnArr } from '@/app/mockBtn';
+import { btnArr } from '@/app/homepage/components/mockBtn';
 import Link from 'next/link';
 
 interface IProps {};

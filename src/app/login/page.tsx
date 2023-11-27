@@ -14,10 +14,35 @@ export default function Login() {
         router.back();
     };
 
-    const handleSubmit = () => {
+    // if user login successfully, then set the localStorage and go back to the menu
+    const handleSubmitSuccess = () => {
         localStorage.setItem('loginStatus', '1');
         alert('Login Successfully!')
         router.back();
+    };
+
+    const handleSubmit = async () => {
+        fetch("/api/login", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        }).then(async (res) => {
+            const body = await res.json();
+            if (res.status === 200 && body.code === 0) {
+                handleSubmitSuccess();
+            } else if (res.status === 200) {
+                alert(`Login request failed: username or password is incorrect, please try again.`);
+            } else {
+                alert(`Login request failed: ${res.status} ${res.statusText}`)
+            }
+        }).catch((error: Error) => {
+            alert(`Login request failed: ${error.message}`)
+        });
     };
 
     return (
