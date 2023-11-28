@@ -42,6 +42,8 @@ This process simulates the process of reading user information from the database
 
 ### JSON Mode
 
+notice: The api path prefix is written as http://localhost:3000 because the jest only supports the absolute url, if this port is unavailable, please change this path.
+
 The data used for constructing the menu is obtained from a specific api. And that api is gonna fetch data from a JSON file. This process simulates the process of obtaining JSON data from other servers.
 
 The structure of the menu is generated based on the data in JSON, and after clicking each button, the menu will also change based on the data in JSON.
@@ -53,6 +55,18 @@ However, the login/logout button will always be the first button in the menu. Be
 At the same time, you can also upload your JSON file, and the data inside will replace the origin JSON data obtained from the api.
 
 ## Unit Test
+
+Jest is used for the unit test, all the config can be seen in jest.config.js.
+
+All the test cases can be found in __tests__ directory.
+
+```bash
+npm run test
+# or
+npm run test:coverage
+```
+
+The code coverage is over 85%.
 
 ## FYI
 

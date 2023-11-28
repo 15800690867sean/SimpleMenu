@@ -54,7 +54,7 @@ export default class ButtonList extends Component<IProps, IState> {
     };
     // JSON Mode
     if (this.state.activeIdx === 1) {
-      fetch("/api/menuData", {
+      fetch(`http://localhost:3000/api/menuData`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default class ButtonList extends Component<IProps, IState> {
         // set the buttons according to the initial JSON
         this.setState({ buttons: Object.keys(this.currentButtonTree) });
       }).catch((error: Error) => {
-        alert(`JSON request failed: ${error.message}`)
+        alert(`JSON request failed: ${error.message}`);
       });
     } else if (this.state.activeIdx === 0) {
       this.setState({ buttons: btnArr });
@@ -100,8 +100,9 @@ export default class ButtonList extends Component<IProps, IState> {
   // handle the JSON file uploaded by user
   handleUpload = (files: FileList | null): void => {
     if (!files) {
+      alert('The file is invalid')
       return;
-    }
+    };
     const file = files[0];
     const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
@@ -161,7 +162,7 @@ export default class ButtonList extends Component<IProps, IState> {
           </p>
         }
         {activeIdx === 1 && 
-          <input onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleUpload(e.target.files)} type="file" accept='application/json' />
+          <input onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleUpload(e.target.files)} type="file" title='uploader' accept='application/json' />
         }
         <div className={styles.body}>
           {isLogin 

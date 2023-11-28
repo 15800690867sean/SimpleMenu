@@ -22,7 +22,9 @@ export default function Login() {
     };
 
     const handleSubmit = async () => {
-        fetch("/api/login", {
+        // this path is written because jest only takes absolute url
+        // if your port 3000 is not available, please change it 
+        fetch("http://localhost:3000/api/login", {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,11 +53,25 @@ export default function Login() {
             <div className='input-area'>
                 <div className='input-block'>
                     <label htmlFor="username">username:&nbsp;</label>
-                    <input onInput={(e: FormEvent<HTMLInputElement>) => setUsername((e.target as HTMLInputElement).value)} className='input' id='username' type="text" />
+                    <input
+                        title='username'
+                        onInput={(e: FormEvent<HTMLInputElement>) => setUsername((e.target as HTMLInputElement).value)}
+                        onChange={(e: FormEvent<HTMLInputElement>) => setUsername((e.target as HTMLInputElement).value)}
+                        className='input'
+                        id='username'
+                        type="text"
+                    />
                 </div>
                 <div className='input-block'>
                     <label htmlFor="password">password:&nbsp;</label>
-                    <input onInput={(e: FormEvent<HTMLInputElement>) => setPassword((e.target as HTMLInputElement).value)} className='input' id='password' type="password" />
+                    <input
+                        title='password'
+                        onInput={(e: FormEvent<HTMLInputElement>) => setPassword((e.target as HTMLInputElement).value)}
+                        onChange={(e: FormEvent<HTMLInputElement>) => setPassword((e.target as HTMLInputElement).value)}
+                        className='input'
+                        id='password'
+                        type="password"
+                    />
                 </div>
             </div>
             <div className='button-area'>
