@@ -3,7 +3,6 @@
 import React, { FormEvent, useState } from 'react'
 import './index.css';
 import { useRouter } from 'next/navigation';
-import { POST } from '../api/login/route';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -24,13 +23,7 @@ export default function Login() {
 
     const handleSubmit = async () => {
         // If it's testing, use the mock request instead of the real one
-        const isTesting = process.env.NODE_ENV === 'test';
-        const customFetch: (path: any, req: any) => Promise<any> = isTesting
-            ? (_: any, req: any): Promise<any> => {
-                return POST(req);
-            }
-            : fetch;
-        customFetch('api/login', {
+        fetch(`http://${location.hostname}:${location.port || 3000}/api/login`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +33,7 @@ export default function Login() {
                 password,
             }),
         }).then(async (res) => {
-            const body = isTesting ? res : await res.json();
+            const body = await res.json();
             if (res.status === 200 && body.code === 0) {
                 handleSubmitSuccess();
             } else if (res.status === 200) {

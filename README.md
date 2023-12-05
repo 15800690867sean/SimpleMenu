@@ -60,7 +60,13 @@ Jest is used for the unit test, all the config can be seen in jest.config.js.
 
 All the test cases can be found in __tests__ directory.
 
+To test the functions with real api requests, you should run the dev server first.
+
+Otherwise, the api could not be found and some functions will not work as expected.
+
 ```bash
+npm run dev
+# in new terminal
 npm run test
 # or
 npm run test:coverage

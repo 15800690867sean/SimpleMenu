@@ -55,18 +55,13 @@ export default class ButtonList extends Component<IProps, IState> {
     };
     // JSON Mode
     if (this.state.activeIdx === 1) {
-      const isTesting = process.env.NODE_ENV === 'test';
-      const customFetch: (path: any, req: any) => Promise<any> = isTesting
-        ? (_: any, req: any): Promise<any> => {
-          return GET(req);
-        } : fetch;
-      customFetch('api/menuData', {
+      fetch(`http://${location.hostname}:${location.port || 3000}/api/menuData`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
         },
       }).then(async (res) => {
-        const {data} = isTesting ? res : await res.json();
+        const {data} = await res.json();
         this.buttonTree = data;
         this.currentButtonTree = data;
         // set the buttons according to the initial JSON
