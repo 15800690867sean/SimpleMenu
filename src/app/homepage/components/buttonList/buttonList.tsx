@@ -5,6 +5,7 @@ import styles from './buttonList.module.css';
 import ButtonItem from '../buttonItem/buttonItem';
 import { btnArr } from '@/app/homepage/components/mockBtn';
 import Link from 'next/link';
+import { GET } from '@/app/api/menuData/route';
 
 interface IProps {};
 
@@ -54,13 +55,18 @@ export default class ButtonList extends Component<IProps, IState> {
     };
     // JSON Mode
     if (this.state.activeIdx === 1) {
-      fetch(`http://localhost:3000/api/menuData`, {
+      const isTesting = process.env.NODE_ENV === 'test';
+      const customFetch: (path: any, req: any) => Promise<any> = isTesting
+        ? (_: any, req: any): Promise<any> => {
+          return GET(req);
+        } : fetch;
+      customFetch('api/menuData', {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
         },
       }).then(async (res) => {
-        const {data} = await res.json();
+        const {data} = isTesting ? res : await res.json();
         this.buttonTree = data;
         this.currentButtonTree = data;
         // set the buttons according to the initial JSON

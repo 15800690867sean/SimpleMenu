@@ -40,6 +40,8 @@ describe("structure test", () => {
         expect(usernameInput).toBeInTheDocument();
         expect(passwordInput).toBeInTheDocument();
 
+        fireEvent.input(usernameInput, {target: {value: '111'}});
+        fireEvent.input(passwordInput, {target: {value: '222'}});
         fireEvent.change(usernameInput, {target: {value: '111'}});
         fireEvent.change(passwordInput, {target: {value: '222'}});
         fireEvent.click(submit);
