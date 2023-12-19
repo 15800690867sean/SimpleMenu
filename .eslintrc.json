@@ -6,10 +6,13 @@
   "rules": {
     "block-spacing": [2, "always"],
     // "comma-dangle": [2, "never"],
-    "comma-spacing": [2, {
-      "before": false,
-      "after": true
-    }],
+    "comma-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
     "no-const-assign": 2,
     "no-console": 1
   }
